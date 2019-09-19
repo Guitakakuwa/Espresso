@@ -7,6 +7,10 @@
 
 import Foundation
 
+#if canImport(Combine)
+import Combine
+#endif
+
 /// An observable event that dispatches with a value.
 public class Event<V> {
     
@@ -36,6 +40,12 @@ public class Event<V> {
     }
     
     private var observers = [Observer<V>]()
+    
+    /// The event's dispatch publisher.
+    @available(iOS 13, *)
+    public lazy var publisher: PassthroughSubject<V, Never> = {
+        return PassthroughSubject<V, Never>()
+    }()
     
     /// Initializes an event.
     public init() {
@@ -81,7 +91,13 @@ public class Event<V> {
     /// Dispatches a value to all observers.
     /// - parameter value: The value to dispatch.
     public func dispatch(value: V) {
+        
         self.observers.forEach { $0.send(value: value) }
+        
+        if #available(iOS 13, *) {
+            self.publisher.send(value)
+        }
+        
     }
     
 }

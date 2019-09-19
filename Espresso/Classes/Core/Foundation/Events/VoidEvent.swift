@@ -7,10 +7,20 @@
 
 import Foundation
 
+#if canImport(Combine)
+import Combine
+#endif
+
 /// An observable event that dispatches with no value.
 public class VoidEvent {
     
     private let event = Event<Void>()
+    
+    /// The event's dispatch publisher.
+    @available(iOS 13, *)
+    public lazy var publisher: PassthroughSubject<Void, Never> = {
+        return self.event.publisher
+    }()
     
     /// Initializes an event.
     public init() {
