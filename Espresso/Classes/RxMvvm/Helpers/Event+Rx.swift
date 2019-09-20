@@ -50,8 +50,8 @@ private class RxVoidEvent {
 
 public extension Event /* Rx */ {
     
-    var observable: Observable<V> {
-        return RxEvent<V>(event: self).observable
+    var observable: Observable<Value> {
+        return RxEvent<Value>(event: self).observable
     }
     
 }

@@ -92,6 +92,8 @@
 		263C9C6D2332ED4D00798F55 /* UIApplication+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C9C6C2332ED4D00798F55 /* UIApplication+Events.swift */; };
 		263C9C6F2332ED9D00798F55 /* UIViewController+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C9C6E2332ED9D00798F55 /* UIViewController+Events.swift */; };
 		263C9C722332F41100798F55 /* Event+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C9C712332F41100798F55 /* Event+Rx.swift */; };
+		263C9C892334B55200798F55 /* EventToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C9C882334B55200798F55 /* EventToken.swift */; };
+		263C9C8B2334B57700798F55 /* EventObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C9C8A2334B57700798F55 /* EventObserver.swift */; };
 		26716B174C7DEDFFB50B7293058C65A5 /* GroupedObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF883FA521B8E72E2985E5A9EA60179F /* GroupedObservable.swift */; };
 		269077587811CACA1E932F4448D8DD0D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A96FC5AF767CDA27863653505E9EFCEB /* Foundation.framework */; };
 		27056B364B766DBA759911ED63577980 /* Bag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71CEA6EF4BE266772799B11605DFDE43 /* Bag.swift */; };
@@ -664,6 +666,8 @@
 		263C9C6C2332ED4D00798F55 /* UIApplication+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Events.swift"; sourceTree = "<group>"; };
 		263C9C6E2332ED9D00798F55 /* UIViewController+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Events.swift"; sourceTree = "<group>"; };
 		263C9C712332F41100798F55 /* Event+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+Rx.swift"; sourceTree = "<group>"; };
+		263C9C882334B55200798F55 /* EventToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventToken.swift; sourceTree = "<group>"; };
+		263C9C8A2334B57700798F55 /* EventObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventObserver.swift; sourceTree = "<group>"; };
 		26516A5C320D6EEEF545523DEA55FFF2 /* Catch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Catch.swift; path = RxSwift/Observables/Catch.swift; sourceTree = "<group>"; };
 		2758A862A9A460CA51BC2C264945FF24 /* ConstraintInsets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintInsets.swift; path = Source/ConstraintInsets.swift; sourceTree = "<group>"; };
 		278BAE2C3AB2444D74640EEDDCF25315 /* RxSwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "RxSwift-dummy.m"; sourceTree = "<group>"; };
@@ -1273,6 +1277,8 @@
 			isa = PBXGroup;
 			children = (
 				E1C09CE54E9BBE2A38307DAF2F91C714 /* Event.swift */,
+				263C9C8A2334B57700798F55 /* EventObserver.swift */,
+				263C9C882334B55200798F55 /* EventToken.swift */,
 				7B6D6F1299514FDE095C52E406ABAD5C /* VoidEvent.swift */,
 			);
 			path = Events;
@@ -2674,6 +2680,7 @@
 				263C9C6D2332ED4D00798F55 /* UIApplication+Events.swift in Sources */,
 				27B43D5C2A95E8DD8506F624E943DC5C /* Espresso-dummy.m in Sources */,
 				985D35AD4A10F2696966489E53213E89 /* Float+Espresso.swift in Sources */,
+				263C9C8B2334B57700798F55 /* EventObserver.swift in Sources */,
 				536FD1984BEB6B1ACD2B372018FA9947 /* Identifiable.swift in Sources */,
 				B739D93971B5AF421DE687DC02D0D8F4 /* IndexPath+Espresso.swift in Sources */,
 				A1313FC6DC0CD10042330758FE9503A7 /* JSONConvertible.swift in Sources */,
@@ -2700,6 +2707,7 @@
 				3869D3ED5C4D9100F4D5B66B52FA59AC /* UIBaseCollectionViewCell.swift in Sources */,
 				263C9C722332F41100798F55 /* Event+Rx.swift in Sources */,
 				7C81B5ACFF76E69205F478476FEF2579 /* UIBaseTableViewCell.swift in Sources */,
+				263C9C892334B55200798F55 /* EventToken.swift in Sources */,
 				10A3C71EC809BF61B15A954E004CE9BA /* UIBaseView.swift in Sources */,
 				A342569FC17FD7B5F3502155E33BE2AA /* UIBaseViewController.swift in Sources */,
 				03B2D7CE3E1E11B7C90A47F1202D48A5 /* UIBlurView.swift in Sources */,

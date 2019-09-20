@@ -12,40 +12,20 @@ import Combine
 #endif
 
 /// An observable event that dispatches with a value.
-public class Event<V> {
+public class Event<Value> {
     
-    internal class Observer<V> {
-                
-        private var handler: (V)->()
-        
-        init(handler: @escaping (V)->()) {
-            self.handler = handler
-        }
-        
-        func send(value: V) {
-            self.handler(value)
-        }
-        
-    }
+    private var observers = [EventObserver<Value>]()
     
-    /// `Event` token class that can be used to identify a specific observer.
-    public class Token<V> {
-        
-        internal var observer: Observer<V>
-        
-        internal init(observer: Observer<V>) {
-            self.observer = observer
-        }
-        
-    }
-    
-    private var observers = [Observer<V>]()
+    @available(iOS 13, *)
+    private lazy var subject: PassthroughSubject<Value, Never> = {
+        return PassthroughSubject<Value, Never>()
+    }()
     
     /// The event's dispatch publisher.
     @available(iOS 13, *)
-    public lazy var publisher: PassthroughSubject<V, Never> = {
-        return PassthroughSubject<V, Never>()
-    }()
+    public var publisher: AnyPublisher<Value, Never> {
+        return self.subject.eraseToAnyPublisher()
+    }
     
     /// Initializes an event.
     public init() {
@@ -56,17 +36,17 @@ public class Event<V> {
     /// - parameter handler: The handler called when dispatching.
     /// - returns: An event token.
     @discardableResult
-    public func addObserver(_ handler: @escaping (V)->()) -> Token<V> {
+    public func addObserver(_ handler: @escaping (Value)->()) -> EventToken<Value> {
         
-        let observer = Observer(handler: handler)
+        let observer = EventObserver(handler: handler)
         self.observers.append(observer)
-        return Token(observer: observer)
+        return EventToken(observer: observer)
         
     }
     
     /// Removes an observer using an event token.
     /// - parameter token: The event token.
-    public func removeObserver(token: Token<V>) {
+    public func removeObserver(token: EventToken<Value>) {
         
         // We cannot just remove the observers from the array,
         // because to do that our observer class would have
@@ -90,12 +70,12 @@ public class Event<V> {
     
     /// Dispatches a value to all observers.
     /// - parameter value: The value to dispatch.
-    public func dispatch(value: V) {
+    public func dispatch(value: Value) {
         
         self.observers.forEach { $0.send(value: value) }
         
         if #available(iOS 13, *) {
-            self.publisher.send(value)
+            self.subject.send(value)
         }
         
     }

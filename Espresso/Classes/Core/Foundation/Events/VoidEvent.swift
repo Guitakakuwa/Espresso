@@ -18,9 +18,9 @@ public class VoidEvent {
     
     /// The event's dispatch publisher.
     @available(iOS 13, *)
-    public lazy var publisher: PassthroughSubject<Void, Never> = {
+    public var publisher: AnyPublisher<Void, Never> {
         return self.event.publisher
-    }()
+    }
     
     /// Initializes an event.
     public init() {
@@ -31,13 +31,13 @@ public class VoidEvent {
     /// - parameter handler: The handler called when a dispatching.
     /// - returns: An event token.
     @discardableResult
-    public func addObserver(_ handler: @escaping ()->()) -> Event<Void>.Token<Void> {
+    public func addObserver(_ handler: @escaping ()->()) -> EventToken<Void> {
         return self.event.addObserver(handler)
     }
     
     /// Removes an observer using an event token.
     /// - parameter token: The event token.
-    public func removeObserver(token: Event<Void>.Token<Void>) {
+    public func removeObserver(token: EventToken<Void>) {
         self.event.removeObserver(token: token)
     }
     

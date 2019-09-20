@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     private var sceneDirector: SceneDirector!
+    var t: Any?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -26,6 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window: self.window!,
             debug: true
         ).start()
+        
+        if #available(iOS 13, *) {
+            self.t = UIApplication.shared.events.didEnterBackground.publisher.sink { _ in
+                print("Background")
+            }
+        }
         
         return true
         
