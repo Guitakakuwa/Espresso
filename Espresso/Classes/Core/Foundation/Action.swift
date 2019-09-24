@@ -28,7 +28,7 @@ public protocol Action {
 public class DataAction<T>: Action {
     
     private let block: (T?)->()
-    private var throttler: Throttler?
+    private var executor: Executor?
     
     /**
      Initializes an action using a given execution block.
@@ -46,8 +46,23 @@ public class DataAction<T>: Action {
         
         self.block = block
         
-        self.throttler = Throttler(
+        self.executor = Throttler(
             time: throttled,
+            queue: queue
+        )
+        
+    }
+    
+    /// Initializes a debounced action using a given execution block.
+    /// - parameter debounced: The debounce time.
+    /// - parameter queue: The `DispatchQueue` to execute the block on.
+    /// - parameter block: The action's execution block.
+    public init(debounced: TimeInterval, queue: DispatchQueue = .main, _ block: @escaping (T?)->()) {
+        
+        self.block = block
+        
+        self.executor = Debouncer(
+            time: debounced,
             queue: queue
         )
         
@@ -55,8 +70,8 @@ public class DataAction<T>: Action {
     
     public func run(with data: T?) {
         
-        if let throttler = self.throttler {
-            throttler.run { [weak self] in
+        if let executor = self.executor {
+            executor.execute { [weak self] in
                 self?.block(data)
             }
         }
@@ -76,7 +91,7 @@ public class VoidAction: Action {
     public typealias T = Void
     
     private let block: ()->()
-    private var throttler: Throttler?
+    private var executor: Executor?
     
     /**
      Initializes an action using a given execution block.
@@ -94,8 +109,23 @@ public class VoidAction: Action {
         
         self.block = block
         
-        self.throttler = Throttler(
+        self.executor = Throttler(
             time: throttled,
+            queue: queue
+        )
+        
+    }
+    
+    /// Initializes a debounced action using a given execution block.
+    /// - parameter debounced: The debounce time.
+    /// - parameter queue: The `DispatchQueue` to execute the block on.
+    /// - parameter block: The action's execution block.
+    public init(debounced: TimeInterval, queue: DispatchQueue = .main, _ block: @escaping ()->()) {
+        
+        self.block = block
+        
+        self.executor = Debouncer(
+            time: debounced,
             queue: queue
         )
         
@@ -103,8 +133,8 @@ public class VoidAction: Action {
     
     public func run(with data: T? = nil) {
     
-        if let throttler = self.throttler {
-            throttler.run { [weak self] in
+        if let executor = self.executor {
+            executor.execute { [weak self] in
                 self?.block()
             }
         }

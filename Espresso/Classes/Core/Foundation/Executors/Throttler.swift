@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class Throttler {
+public class Throttler: Executor {
     
     private var time: TimeInterval
     private var queue: DispatchQueue
@@ -20,14 +20,14 @@ public class Throttler {
         
     }
     
-    public func run(_ block: @escaping ()->()) {
+    public func execute(_ closure: @escaping ()->()) {
         
         guard self.workItem == nil else { return }
                 
         self.workItem = DispatchWorkItem() { [weak self] in
-
-            block()
+            
             self?.workItem = nil
+            closure()
             
         }
         

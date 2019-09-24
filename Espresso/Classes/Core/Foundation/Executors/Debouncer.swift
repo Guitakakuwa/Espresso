@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class Debouncer {
+public class Debouncer: Executor {
     
     private var time: TimeInterval
     private var queue: DispatchQueue
@@ -22,7 +22,7 @@ public class Debouncer {
         
     }
     
-    public func run(_ block: @escaping ()->()) {
+    public func execute(_ closure: @escaping ()->()) {
         
         // Cancel the existing work item if it exists & hasn't executed yet.
         
@@ -31,8 +31,10 @@ public class Debouncer {
         // Re-init our work item; resetting our last fire date when called.
         
         self.workItem = DispatchWorkItem() { [weak self] in
+            
             self?.lastFireDate = Date()
-            block()
+            closure()
+            
         }
         
         guard let date = self.lastFireDate else {
