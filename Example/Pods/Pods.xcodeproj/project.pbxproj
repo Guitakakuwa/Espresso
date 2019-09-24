@@ -90,6 +90,7 @@
 		25CED2A5498BC08B6713653CBAB4F5AD /* UIRefreshControl+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78809F389A5777A09FF64CF4012F0DA /* UIRefreshControl+Rx.swift */; };
 		2619742711A31A537536C690F7AC6AD4 /* Lock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F77B38ECF483168C09E48C9E685F092 /* Lock.swift */; };
 		262463E02336A70E0016683A /* UITransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262463DF2336A70E0016683A /* UITransitionAnimator.swift */; };
+		262463FF23399E6B0016683A /* Throttler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262463FE23399E6B0016683A /* Throttler.swift */; };
 		263C9C6D2332ED4D00798F55 /* UIApplication+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C9C6C2332ED4D00798F55 /* UIApplication+Events.swift */; };
 		263C9C6F2332ED9D00798F55 /* UIViewController+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C9C6E2332ED9D00798F55 /* UIViewController+Events.swift */; };
 		263C9C722332F41100798F55 /* Event+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263C9C712332F41100798F55 /* Event+Rx.swift */; };
@@ -663,6 +664,7 @@
 		24EF91225D25B3F43CF070DEA6B839ED /* ConnectableObservableType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConnectableObservableType.swift; path = RxSwift/ConnectableObservableType.swift; sourceTree = "<group>"; };
 		25A9A5057E3BC09EB81F67B29226ED57 /* ConstraintLayoutSupportDSL.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ConstraintLayoutSupportDSL.swift; path = Source/ConstraintLayoutSupportDSL.swift; sourceTree = "<group>"; };
 		262463DF2336A70E0016683A /* UITransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITransitionAnimator.swift; sourceTree = "<group>"; };
+		262463FE23399E6B0016683A /* Throttler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Throttler.swift; sourceTree = "<group>"; };
 		263C9C6C2332ED4D00798F55 /* UIApplication+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+Events.swift"; sourceTree = "<group>"; };
 		263C9C6E2332ED9D00798F55 /* UIViewController+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Events.swift"; sourceTree = "<group>"; };
 		263C9C712332F41100798F55 /* Event+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Event+Rx.swift"; sourceTree = "<group>"; };
@@ -1398,6 +1400,7 @@
 				CD5ACF5FE8647BF4AC9EB604269EF575 /* IndexPath+Espresso.swift */,
 				84DB2356F6FB6CE02459D973AB7C4E6A /* NotificationObserver.swift */,
 				76AA658E104B243E469F428F633029D6 /* String+Espresso.swift */,
+				262463FE23399E6B0016683A /* Throttler.swift */,
 				ADB6E6A33D6CB5933A421EB4EEE5EF14 /* XMLCodable.swift */,
 			);
 			name = Foundation;
@@ -2719,6 +2722,7 @@
 				6C0A94B833AAE3504E02C07C251EBACE /* UIGradientView.swift in Sources */,
 				2E62F81AB8EA9F8F568CBF7F73947B41 /* UIHomeGrabber.swift in Sources */,
 				10D496152F2B772D2E8E906F37811933 /* UIImage+Espresso.swift in Sources */,
+				262463FF23399E6B0016683A /* Throttler.swift in Sources */,
 				619C861BBE50874388AEDD02D89EE4DD /* UINavigationController+Espresso.swift in Sources */,
 				632C12138B0CDD24F817C31C32C99F32 /* UINavigationController+UITransition.swift in Sources */,
 				61A350D887B50542AA9223B99E8A2340 /* UINibView.swift in Sources */,
