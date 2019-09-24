@@ -7,6 +7,12 @@
 
 import Foundation
 
+
+/// `Debouncer` ensures that a closure is executed once **after** a given time-interval.
+/// Subsequent attempts to execute a closure _before_ the time-interval has passed will reset
+/// the elapsed time & replace the closure.
+///
+/// Only the last closure provided will be executed **after** the debounce time-interval has passed.
 public class Debouncer: Executor {
     
     private var time: TimeInterval
@@ -15,6 +21,9 @@ public class Debouncer: Executor {
     private var workItem: DispatchWorkItem?
     private var lastFireDate: Date?
     
+    /// Initializes a debouncer with a specifed time-interval & queue.
+    /// - parameter time: The debounce time-interval.
+    /// - parameter queue: The `DispatchQueue` to execute closures on; _defaults to main_.
     public init(time: TimeInterval, queue: DispatchQueue = .main) {
         
         self.time = time
