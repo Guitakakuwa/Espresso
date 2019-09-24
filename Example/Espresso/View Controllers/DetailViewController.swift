@@ -43,6 +43,13 @@ class DetailViewController: UIViewController {
         
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(true)
+        // esp_assertDealloc()
+        
+    }
+    
     @objc private func didTapDismiss(_ sender: UIBarButtonItem) {
         self.delegate?.detailViewControllerDidTapDone(self)
     }

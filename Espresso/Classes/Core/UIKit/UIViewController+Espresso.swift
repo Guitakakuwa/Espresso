@@ -25,3 +25,40 @@ public extension Identifiable where Self: UIViewController /* Storyboard */ {
     }
     
 }
+
+public extension UIViewController /* Debug */ {
+    
+    private var esp_parentViewController: UIViewController {
+        
+        var root = self
+
+        while let parent = root.parent {
+            root = parent
+        }
+
+        return root
+        
+    }
+    
+    func esp_assertDealloc(after delay: TimeInterval = 2) {
+        
+        let parentViewController = self.esp_parentViewController
+
+        // We don’t check `isBeingDismissed` simply on this view controller because it’s common
+        // to wrap a view controller in another view controller (e.g. in UINavigationController)
+        // and present the wrapping view controller instead.
+        
+        if self.isMovingFromParent || parentViewController.isBeingDismissed {
+            
+            let _type = type(of: self)
+            let context = self.isMovingFromParent ? "removal" : "dismissal"
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: { [weak self] in
+                assert(self == nil, "\(_type) not deallocated after \(context)")
+            })
+            
+        }
+        
+    }
+    
+}

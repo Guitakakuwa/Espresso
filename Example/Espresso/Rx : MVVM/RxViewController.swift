@@ -30,9 +30,17 @@ class RxViewController: RxViewModelViewController<RxViewModel> {
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.numberOfLines = 0
         self.view.addSubview(label)
-        label.snp.makeConstraints { (make) in
-            make.edges.equalTo(0)
+        label.snp.makeConstraints { [weak self] (make) in
+            guard let _self = self else { return }
+            make.edges.equalTo(_self.view.snp.edges)
         }
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        super.viewDidDisappear(true)
+        esp_assertDealloc()
         
     }
     
