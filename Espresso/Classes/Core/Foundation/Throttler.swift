@@ -31,10 +31,10 @@ public class Throttler {
             
         }
         
-        self.queue.asyncAfter(
-            deadline: .now() + self.time,
-            execute: self.workItem!
-        )
+        self.queue.async(execute: self.workItem!)
+        self.queue.asyncAfter(deadline: .now() + self.time) {
+            self.workItem = nil
+        }
         
     }
     
