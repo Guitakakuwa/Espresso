@@ -11,9 +11,7 @@ public class Throttler {
     
     private var time: TimeInterval
     private var queue: DispatchQueue
-    
-    private var workItem: DispatchWorkItem = DispatchWorkItem(block: {})
-    private var lastFireDate: Date = .distantPast
+    private var workItem: DispatchWorkItem?
     
     public init(time: TimeInterval, queue: DispatchQueue = .main) {
         
@@ -24,18 +22,18 @@ public class Throttler {
     
     public func run(_ block: @escaping ()->()) {
         
-        self.workItem.cancel()
+        guard self.workItem == nil else { return }
+                
         self.workItem = DispatchWorkItem() { [weak self] in
-            self?.lastFireDate = Date()
+
             block()
+            self?.workItem = nil
+            
         }
         
-        let elapsed = Date().timeIntervalSince(self.lastFireDate)
-        let delay = (elapsed > self.time) ? 0 : self.time
-        
         self.queue.asyncAfter(
-            deadline: .now() + delay,
-            execute: self.workItem
+            deadline: .now() + self.time,
+            execute: self.workItem!
         )
         
     }

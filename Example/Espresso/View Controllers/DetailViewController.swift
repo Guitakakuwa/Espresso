@@ -15,6 +15,8 @@ protocol DetailViewControllerDelegate: class {
 
 class DetailViewController: UIViewController {
     
+    private var button: UIButton!
+    
     var showsDismissButton: Bool = false
     weak var delegate: DetailViewControllerDelegate?
     
