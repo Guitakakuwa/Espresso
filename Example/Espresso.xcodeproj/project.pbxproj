@@ -17,6 +17,8 @@
 		269114C62344341500A4A5F6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269114C52344341500A4A5F6 /* Color.swift */; };
 		26AA0D5023453FEE003E9CE3 /* ContextMenuCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA0D4F23453FEE003E9CE3 /* ContextMenuCollectionViewController.swift */; };
 		26AA0D522345416D003E9CE3 /* ContextCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA0D512345416D003E9CE3 /* ContextCollectionCell.swift */; };
+		26AA0D8723454FB4003E9CE3 /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA0D8623454FB4003E9CE3 /* AsyncTests.swift */; };
+		26AA0D8823454FDA003E9CE3 /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA0D8623454FB4003E9CE3 /* AsyncTests.swift */; };
 		26CC8AE821E52F8B00AE6F94 /* EspressoAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC8AE721E52F8B00AE6F94 /* EspressoAppCoordinator.swift */; };
 		26CC8AEA21E52FB000AE6F94 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC8AE921E52FB000AE6F94 /* RootCoordinator.swift */; };
 		26CDD00320E442E800BE58A1 /* CustomTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CDD00220E442E800BE58A1 /* CustomTransition.swift */; };
@@ -25,7 +27,6 @@
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		EFED19FED4F1DDB2FBE84B00 /* Pods_Espresso_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10899A89F9DA1DF065DAB132 /* Pods_Espresso_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		269114C52344341500A4A5F6 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		26AA0D4F23453FEE003E9CE3 /* ContextMenuCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextMenuCollectionViewController.swift; sourceTree = "<group>"; };
 		26AA0D512345416D003E9CE3 /* ContextCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContextCollectionCell.swift; sourceTree = "<group>"; };
+		26AA0D8623454FB4003E9CE3 /* AsyncTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncTests.swift; sourceTree = "<group>"; };
 		26CC8AE721E52F8B00AE6F94 /* EspressoAppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EspressoAppCoordinator.swift; sourceTree = "<group>"; };
 		26CC8AE921E52FB000AE6F94 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
 		26CDD00220E442E800BE58A1 /* CustomTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransition.swift; sourceTree = "<group>"; };
@@ -63,7 +65,6 @@
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* Espresso_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Espresso_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		64962010BE1AC474D68C7BBF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		7574E0F09529FF88B2371DD0 /* Pods-Espresso_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espresso_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Espresso_Tests/Pods-Espresso_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A80B3E6A78C892CAC01B9007 /* Pods-Espresso_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Espresso_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Espresso_Tests/Pods-Espresso_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -192,7 +193,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				607FACEB1AFB9204008FA782 /* Tests.swift */,
+				26AA0D8623454FB4003E9CE3 /* AsyncTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
@@ -416,6 +417,7 @@
 				26CC8AEA21E52FB000AE6F94 /* RootCoordinator.swift in Sources */,
 				269114C12344318F00A4A5F6 /* ContextView.swift in Sources */,
 				26AA0D5023453FEE003E9CE3 /* ContextMenuCollectionViewController.swift in Sources */,
+				26AA0D8723454FB4003E9CE3 /* AsyncTests.swift in Sources */,
 				26AA0D522345416D003E9CE3 /* ContextCollectionCell.swift in Sources */,
 				26CC8AE821E52F8B00AE6F94 /* EspressoAppCoordinator.swift in Sources */,
 				269114C62344341500A4A5F6 /* Color.swift in Sources */,
@@ -434,7 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
+				26AA0D8823454FDA003E9CE3 /* AsyncTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
