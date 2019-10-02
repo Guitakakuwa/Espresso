@@ -1,5 +1,5 @@
 import XCTest
-import Espresso
+@testable import Espresso
 
 class AsyncTests: XCTestCase {
     
@@ -18,28 +18,6 @@ class AsyncTests: XCTestCase {
     private let stringArray = ["0", "1", "2", "3"]
     
     // MARK: Tests
-    
-    func testAsync() {
-        
-        weak var exp = self.expectation(description: "Fulfilled with expected value")
-        
-        var string: String?
-        
-        async {
-            
-            self.asyncString()
-            
-        }.done { _string in
-            
-            string = _string
-            exp?.fulfill()
-            
-        }
-        
-        waitForExpectations(timeout: 1, handler: nil)
-        XCTAssert(string == self.string)
-        
-    }
     
     func testDone() {
         
@@ -415,7 +393,29 @@ class AsyncTests: XCTestCase {
 
     }
     
-    // TODO: Asyncs (operator) tests
+    // MARK: Globals
+    
+    func testGlobalAsync() {
+        
+        weak var exp = self.expectation(description: "Fulfilled with expected value")
+        
+        var string: String?
+        
+        async {
+            
+            self.asyncString()
+            
+        }.done { _string in
+            
+            string = _string
+            exp?.fulfill()
+            
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+        XCTAssert(string == self.string)
+        
+    }
     
     // MARK: Helpers
     

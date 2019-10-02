@@ -17,7 +17,6 @@
 		269114C62344341500A4A5F6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 269114C52344341500A4A5F6 /* Color.swift */; };
 		26AA0D5023453FEE003E9CE3 /* ContextMenuCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA0D4F23453FEE003E9CE3 /* ContextMenuCollectionViewController.swift */; };
 		26AA0D522345416D003E9CE3 /* ContextCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA0D512345416D003E9CE3 /* ContextCollectionCell.swift */; };
-		26AA0D8723454FB4003E9CE3 /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA0D8623454FB4003E9CE3 /* AsyncTests.swift */; };
 		26AA0D8823454FDA003E9CE3 /* AsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AA0D8623454FB4003E9CE3 /* AsyncTests.swift */; };
 		26CC8AE821E52F8B00AE6F94 /* EspressoAppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC8AE721E52F8B00AE6F94 /* EspressoAppCoordinator.swift */; };
 		26CC8AEA21E52FB000AE6F94 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CC8AE921E52FB000AE6F94 /* RootCoordinator.swift */; };
@@ -417,7 +416,6 @@
 				26CC8AEA21E52FB000AE6F94 /* RootCoordinator.swift in Sources */,
 				269114C12344318F00A4A5F6 /* ContextView.swift in Sources */,
 				26AA0D5023453FEE003E9CE3 /* ContextMenuCollectionViewController.swift in Sources */,
-				26AA0D8723454FB4003E9CE3 /* AsyncTests.swift in Sources */,
 				26AA0D522345416D003E9CE3 /* ContextCollectionCell.swift in Sources */,
 				26CC8AE821E52F8B00AE6F94 /* EspressoAppCoordinator.swift in Sources */,
 				269114C62344341500A4A5F6 /* Color.swift in Sources */,
