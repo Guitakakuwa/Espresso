@@ -1,14 +1,14 @@
 //
-//  UIBaseViewController.swift
-//  Director
+//  UIBaseNavigationController.swift
+//  Espresso
 //
-//  Created by Mitch Treece on 9/16/19.
+//  Created by Mitch Treece on 10/25/19.
 //
 
 import UIKit
 
-/// UIViewController` subclass that provides common helper functions & properties.
-open class UIBaseViewController: UIViewController, UIViewControllerSemiModalAppearance {
+/// UINavigationController` subclass that provides common helper functions & properties.
+open class UIBaseNavigationController: UINavigationController, UIViewControllerSemiModalAppearance {
     
     @available(iOS 12, *)
     public var userInterfaceStyle: UIUserInterfaceStyle {
@@ -87,7 +87,7 @@ open class UIBaseViewController: UIViewController, UIViewControllerSemiModalAppe
     
 }
 
-extension UIBaseViewController: UIAdaptivePresentationControllerDelegate {
+extension UIBaseNavigationController: UIAdaptivePresentationControllerDelegate {
     
     public func presentationControllerWillDismiss(_ presentationController: UIPresentationController) {
         

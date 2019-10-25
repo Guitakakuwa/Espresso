@@ -26,7 +26,7 @@ extension RootCoordinator: RootViewControllerDelegate {
         vc.showsDismissButton = true
         vc.delegate = self
         
-        let nav = UINavigationController(rootViewController: vc)
+        let nav = UIBaseNavigationController(rootViewController: vc)
         nav.transition = row.transition
         modal(nav)
         
