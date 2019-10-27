@@ -18,16 +18,16 @@ public protocol UIViewControllerSemiModalAppearance: UIViewController {
     ///
     /// A view controller is considered semi-modal if it's modal presentation stye is
     /// `automatic`, `pageSheet`, `overFullscreen`, or `overCurrentContext`.
-    func viewWillAppearFromSemiDisappearance(animated: Bool)
+    func viewWillAppearFromSemiModalDisappearance(animated: Bool)
     
     /// Called when a presented semi-modal view controller did dismiss.
     /// - Parameter animated: Flag indicating if the disappearance was done with an animation.
     ///
     /// A view controller is considered semi-modal if it's modal presentation stye is
     /// `automatic`, `pageSheet`, `overFullscreen`, or `overCurrentContext`.
-    func viewDidAppearFromSemiDisappearance(animated: Bool)
+    func viewDidAppearFromSemiModalDisappearance(animated: Bool)
     
     /// Called when the view controller's parent `UIPresentationController` attempts to dismiss.
-    func viewDidAttemptToDismiss()
+    func viewControllerDidAttemptToDismiss()
     
 }

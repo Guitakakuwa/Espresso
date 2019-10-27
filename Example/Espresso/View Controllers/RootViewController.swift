@@ -12,6 +12,7 @@ import SnapKit
 
 protocol RootViewControllerDelegate: class {
     func rootViewController(_ vc: RootViewController, didSelectTransitionRow row: RootViewController.TransitionRow)
+    func rootViewController(_ vc: RootViewController, didSelectModalRow row: RootViewController.ModalRow)
     func rootViewController(_ vc: RootViewController, didSelectViewRow row: RootViewController.ViewRow)
     func rootViewController(_ vc: RootViewController, didSelectMenuRow row: RootViewController.MenuRow)
     func rootViewControllerWantsToPresentRxViewController(_ vc: RootViewController)
@@ -67,6 +68,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
     private enum Section: Int, CaseIterable {
         
         case transition
+        case modals
         case rxMvvm
         case taptics
         case helpers
@@ -109,6 +111,20 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             case .pushBack: return "UIPushBackTransition"
             case .zoom: return "UIZoomTransition"
             case .custom: return "Custom"
+            }
+            
+        }
+        
+    }
+    
+    enum ModalRow: Int, CaseIterable {
+        
+        case semi
+        
+        var title: String {
+            
+            switch self {
+            case .semi: return "Semi-Modal"
             }
             
         }
@@ -225,6 +241,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch _section {
         case .transition: return "Transitions"
+        case .modals: return "Modals"
         case .views: return "Views"
         case .menus: return "Menus"
         case .rxMvvm: return "Rx / MVVM"
@@ -240,6 +257,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch _section {
         case .transition: return TransitionRow.allCases.count
+        case .modals: return ModalRow.allCases.count
         case .views: return ViewRow.allCases.count
         case .menus: return MenuRow.allCases.count
         case .rxMvvm: return RxMvvmRow.allCases.count
@@ -259,6 +277,11 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
         case .transition:
             
             guard let row = TransitionRow(rawValue: indexPath.row) else { return UITableViewCell() }
+            cell.textLabel?.text = row.title
+            
+        case .modals:
+            
+            guard let row = ModalRow(rawValue: indexPath.row) else { return UITableViewCell() }
             cell.textLabel?.text = row.title
             
         case .views:
@@ -309,6 +332,12 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             
             guard let row = TransitionRow(rawValue: indexPath.row) else { return }
             self.delegate?.rootViewController(self, didSelectTransitionRow: row)
+            
+            
+        case .modals:
+            
+            guard let row = ModalRow(rawValue: indexPath.row) else { return }
+            self.delegate?.rootViewController(self, didSelectModalRow: row)
             
         case .views:
             

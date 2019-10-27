@@ -17,7 +17,9 @@ open class UIPresentationTransition: UITransition {
     public func presentationController(forPresented presented: UIViewController,
                                        presenting: UIViewController?,
                                        source: UIViewController) -> UIPresentationController? {
-        fatalError("")
+
+        fatalError("UIPresentationTransition subclasses must override `presentationController(forPresented:presenting:)`")
+
     }
     
 }
@@ -121,28 +123,31 @@ open class UIPresentationTransition: UITransition {
     /// The transition's dismissal settings.
     public var dismissal = Settings.default(for: .dismissal)
     
-    /// Flag indicating whether the transition should be performed interactively.
-    public var isInteractive: Bool = false
-    private var interactor: UITransitionInteractionController?
+    /// Flag indicating whether the transition will be performed interactively.
+    public var isInteractive: Bool {
+        return (self.interactionController != nil)
+    }
+    
+    /// An optional interaction controller to use during the transition.
+    public var interactionController: UITransitionInteractionController?
     
     /// An optional modal presentation style to be set on the destination view controller
     /// before the transition is performed.
     public var modalPresentationStyleOverride: UIModalPresentationStyle?
         
+    private weak var sourceViewController: UIViewController?
+    private weak var destinationViewController: UIViewController?
+    private var navigationOperation: UINavigationController.Operation?
+    
     // MARK: UIViewControllerTransitioningDelegate
+    // MARK: Modal
     
     public func animationController(forPresented presented: UIViewController,
                                     presenting: UIViewController,
                                     source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        if self.isInteractive {
-                
-            self.interactor = UITransitionInteractionController(
-                viewController: presented,
-                navigationController: nil
-            )
-                
-        }
+        self.sourceViewController = presenting
+        self.destinationViewController = presented
         
         return UITransitionAnimator(
             transition: self,
@@ -153,6 +158,9 @@ open class UIPresentationTransition: UITransition {
     
     public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
+        self.sourceViewController = dismissed
+        self.destinationViewController = dismissed.presentingViewController
+        
         return UITransitionAnimator(
             transition: self,
             presentation: false
@@ -161,55 +169,57 @@ open class UIPresentationTransition: UITransition {
     }
     
     public func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil
+        
+        self.interactionController?._setup(
+            sourceViewController: self.sourceViewController,
+            destinationViewController: self.destinationViewController!
+        )
+        
+        return self.interactionController
+        
     }
     
     public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return self.interactor
+        
+        self.interactionController?._update(transitionType: .dismissal)
+        return self.interactionController
+        
     }
+    
+    // MARK: Navigation
         
     public func navigationController(_ navigationController: UINavigationController,
                                      animationControllerFor operation: UINavigationController.Operation,
                                      from fromVC: UIViewController,
                                      to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
-        if (operation == .push) {
-                
-            if self.isInteractive {
-                
-                self.interactor = UITransitionInteractionController(
-                    viewController: toVC,
-                    navigationController: navigationController
-                )
-                
-            }
-            
-            return UITransitionAnimator(transition: self, presentation: true)
-                
-        }
-        else if (operation == .pop) {
-            
-            return UITransitionAnimator(
-                transition: self,
-                presentation: false
-            )
-            
-        }
-
-        return nil
+        guard operation != .none else { return nil }
+        
+        self.sourceViewController = fromVC
+        self.destinationViewController = toVC
+        self.navigationOperation = operation
+        
+        let isPresentation = (operation == .push)
+        
+        return UITransitionAnimator(
+            transition: self,
+            presentation: isPresentation
+        )
         
     }
     
     public func navigationController(_ navigationController: UINavigationController,
                                      interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         
-        guard let animationController = animationController as? UITransitionAnimator,
-            !animationController.isPresentation else { return nil }
+        guard !(self.interactionController?.isTransitioning ?? false) else { return nil }
+                
+        self.interactionController?._setup(
+            sourceViewController: self.sourceViewController,
+            destinationViewController: self.destinationViewController!
+        )
         
-        guard let interactor = self.interactor,
-            interactor.transitionInProgress else { return nil }
-        
-        return interactor
+        self.interactionController?._update(transitionType: (self.navigationOperation == .pop) ? .dismissal : .presentation)
+        return self.interactionController
         
     }
     

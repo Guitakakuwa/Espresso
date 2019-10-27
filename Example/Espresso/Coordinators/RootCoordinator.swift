@@ -32,6 +32,22 @@ extension RootCoordinator: RootViewControllerDelegate {
         
     }
     
+    func rootViewController(_ vc: RootViewController, didSelectModalRow row: RootViewController.ModalRow) {
+        
+        let vc = SemiModalViewController()
+        vc.title = row.title
+        modal(vc)
+        
+//        let nav = UIBaseNavigationController(rootViewController: vc)
+//        nav.modalPresentationStyle = .formSheet
+//        modal(nav)
+        
+//         let url = URL(string: "https://google.com")!
+//         let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+//         modal(vc)
+        
+    }
+    
     func rootViewController(_ vc: RootViewController, didSelectViewRow row: RootViewController.ViewRow) {
               
         var vc: UIViewController!

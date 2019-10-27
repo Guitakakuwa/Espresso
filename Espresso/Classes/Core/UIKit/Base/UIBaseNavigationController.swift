@@ -39,15 +39,15 @@ open class UIBaseNavigationController: UINavigationController, UIViewControllerS
         // Override
     }
     
-    open func viewWillAppearFromSemiDisappearance(animated: Bool) {
+    open func viewWillAppearFromSemiModalDisappearance(animated: Bool) {
         // Override
     }
     
-    open func viewDidAppearFromSemiDisappearance(animated: Bool) {
+    open func viewDidAppearFromSemiModalDisappearance(animated: Bool) {
         // Override
     }
     
-    open func viewDidAttemptToDismiss() {
+    open func viewControllerDidAttemptToDismiss() {
         // Override
     }
     
@@ -68,7 +68,7 @@ open class UIBaseNavigationController: UINavigationController, UIViewControllerS
         
         if self.modalPresentationStyle.isSemiModal {
             presenterDidSemiDisappear = true
-            presenter.viewWillAppearFromSemiDisappearance(animated: flag)
+            presenter.viewWillAppearFromSemiModalDisappearance(animated: flag)
         }
         
         super.dismiss(
@@ -76,7 +76,7 @@ open class UIBaseNavigationController: UINavigationController, UIViewControllerS
             completion: {
                                 
                 if presenterDidSemiDisappear {
-                    presenter.viewDidAppearFromSemiDisappearance(animated: flag)
+                    presenter.viewDidAppearFromSemiModalDisappearance(animated: flag)
                 }
                 
                 completion?()
@@ -95,7 +95,7 @@ extension UIBaseNavigationController: UIAdaptivePresentationControllerDelegate {
             let presented = presentationController.presentedViewController as? UIViewControllerSemiModalAppearance else { return }
         
         if presented.modalPresentationStyle.isSemiModal {
-            presenting.viewWillAppearFromSemiDisappearance(animated: true)
+            presenting.viewWillAppearFromSemiModalDisappearance(animated: true)
         }
         
     }
@@ -106,13 +106,13 @@ extension UIBaseNavigationController: UIAdaptivePresentationControllerDelegate {
             let presented = presentationController.presentedViewController as? UIViewControllerSemiModalAppearance else { return }
         
         if presented.modalPresentationStyle.isSemiModal {
-            presenting.viewDidAppearFromSemiDisappearance(animated: true)
+            presenting.viewDidAppearFromSemiModalDisappearance(animated: true)
         }
         
     }
     
     public func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
-        viewDidAttemptToDismiss()
+        viewControllerDidAttemptToDismiss()
     }
     
 }
