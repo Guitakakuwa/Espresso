@@ -9,11 +9,15 @@ import UIKit
 
 internal class UISemiModalTransition: UIPresentationTransition {
     
+    internal var presentationDuration: TimeInterval = 0.4
+    internal var dismissalDuration: TimeInterval = 0.3
+    internal var isSwipeToDismissEnabled: Bool = true
+    
     override init() {
-        
+                
         super.init()
         
-        self.interactionController = UITransitionModalInteractionController()
+        // self.interactionController = UITransitionModalInteractionController()
         self.presentation.direction = .up
         self.dismissal.direction = .down
         
@@ -44,25 +48,28 @@ internal class UISemiModalTransition: UIPresentationTransition {
     
     private func present(with info: Info, settings: Settings) -> UITransitionController {
 
-        // let sourceVC = info.sourceViewController
-        let destinationVC = info.destinationViewController
-        let container = info.transitionContainerView
         let context = info.context
+        let container = info.transitionContainerView
+        let destinationVC = info.destinationViewController
+        
+        let destinationFinalFrame = context.finalFrame(for: destinationVC)
+        let destinationInitialFrame = CGRect(
+            x: 0,
+            y: container.bounds.height,
+            width: container.bounds.width,
+            height: container.bounds.height
+        )
         
         return UITransitionController(setup: {
             
-            destinationVC.view.transform = self.boundsTransform(
-                in: container,
-                direction: settings.direction.reversed()
-            )
-
+            destinationVC.view.frame = destinationInitialFrame
             container.addSubview(destinationVC.view)
             
         }, animations: {
-            
-            UIAnimation(.spring(damping: 0.9, velocity: CGVector(dx: 0.25, dy: 0)), {
-                destinationVC.view.transform = .identity
-            })
+
+            UIAnimation(.material(.standard), duration: self.presentationDuration, delay: 0) {
+                destinationVC.view.frame = destinationFinalFrame
+            }
             
         }, completion: {
             
@@ -74,24 +81,21 @@ internal class UISemiModalTransition: UIPresentationTransition {
     
     private func dismiss(with info: Info, settings: Settings) -> UITransitionController {
 
-        let sourceVC = info.sourceViewController
-        //let destinationVC = info.destinationViewController
-        let container = info.transitionContainerView
         let context = info.context
+        let container = info.transitionContainerView
+        let sourceVC = info.sourceViewController
+
+        let sourceFinalFrame = CGRect(
+            x: 0,
+            y: container.bounds.height,
+            width: container.bounds.width,
+            height: container.bounds.height
+        )
         
-        return UITransitionController(setup: {
+        return UITransitionController(setup: nil, animations: {
             
-            // container.addSubview(destinationVC.view)
-            
-        }, animations: {
-            
-            UIAnimation {
-                
-                sourceVC.view.transform = self.boundsTransform(
-                    in: container,
-                    direction: settings.direction
-                )
-                
+            UIAnimation(.material(.standard), duration: self.dismissalDuration, delay: 0) {
+                sourceVC.view.frame = sourceFinalFrame
             }
             
         }, completion: {

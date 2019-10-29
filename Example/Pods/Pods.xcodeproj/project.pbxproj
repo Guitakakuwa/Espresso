@@ -87,11 +87,16 @@
 		2608AF9B2363731800177BF8 /* UIViewControllerSemiModalAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2608AF9A2363731800177BF8 /* UIViewControllerSemiModalAppearance.swift */; };
 		2608AF9D2363767C00177BF8 /* UIBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2608AF9C2363767C00177BF8 /* UIBaseNavigationController.swift */; };
 		2608AF9F2363945A00177BF8 /* UISemiModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2608AF9E2363945A00177BF8 /* UISemiModalViewController.swift */; };
+		267B7FFA2367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B7FF92367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift */; };
 		26918039115AA48C4265A42CC73374D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E640CA2B88DC54FAD914B7C048A8CAA5 /* Foundation.framework */; };
 		26B0B0F22364EAB100622FEC /* UISemiModalTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B0B0F12364EAB100622FEC /* UISemiModalTransition.swift */; };
 		26B0B0F42366416A00622FEC /* UISemiModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B0B0F32366416A00622FEC /* UISemiModalPresentationController.swift */; };
 		26BFEF57236652FE00D52D9D /* UITransitionNavInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BFEF552366529D00D52D9D /* UITransitionNavInteractionController.swift */; };
 		26BFEF59236658B100D52D9D /* UITransitionModalInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BFEF58236658B100D52D9D /* UITransitionModalInteractionController.swift */; };
+		26BFEF5B23669C4C00D52D9D /* UIViewController+SemiModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BFEF5A23669C4C00D52D9D /* UIViewController+SemiModal.swift */; };
+		26BFEF5D23674CEC00D52D9D /* UISemiModalViewControllerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BFEF5C23674CEC00D52D9D /* UISemiModalViewControllerTransitioning.swift */; };
+		26BFEF5F23674D1300D52D9D /* UISemiModalState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BFEF5E23674D1300D52D9D /* UISemiModalState.swift */; };
+		26BFEF6123674D2C00D52D9D /* UISemiModalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BFEF6023674D2C00D52D9D /* UISemiModalStyle.swift */; };
 		26C089829E55C0B6259A4F787B03E987 /* SpinLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A87D51B2C19DD77B404773C42AF1B57 /* SpinLock.swift */; };
 		26E5F9401ACAAE69AAAFB0D12FDD17A0 /* Platform.Darwin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A419D0AFAC40E7B4800D2DBCB02571A /* Platform.Darwin.swift */; };
 		26FC4AB52360D86F000C3B3E /* UIModalStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26FC4AB42360D86F000C3B3E /* UIModalStyle.swift */; };
@@ -659,11 +664,16 @@
 		2608AF9E2363945A00177BF8 /* UISemiModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalViewController.swift; sourceTree = "<group>"; };
 		261437FCD1F961B0891EA884FB9396A9 /* RetryWhen.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RetryWhen.swift; path = RxSwift/Observables/RetryWhen.swift; sourceTree = "<group>"; };
 		262DC92B1832299308F492511E079FCF /* NSTextStorage+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSTextStorage+Rx.swift"; path = "RxCocoa/iOS/NSTextStorage+Rx.swift"; sourceTree = "<group>"; };
+		267B7FF92367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalAppearanceHelper.swift; sourceTree = "<group>"; };
 		26B0B0F12364EAB100622FEC /* UISemiModalTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalTransition.swift; sourceTree = "<group>"; };
 		26B0B0F32366416A00622FEC /* UISemiModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalPresentationController.swift; sourceTree = "<group>"; };
 		26BA866E96822E5DD298D20103F92328 /* NSObject+Rx+KVORepresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject+Rx+KVORepresentable.swift"; path = "RxCocoa/Foundation/NSObject+Rx+KVORepresentable.swift"; sourceTree = "<group>"; };
 		26BFEF552366529D00D52D9D /* UITransitionNavInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITransitionNavInteractionController.swift; sourceTree = "<group>"; };
 		26BFEF58236658B100D52D9D /* UITransitionModalInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITransitionModalInteractionController.swift; sourceTree = "<group>"; };
+		26BFEF5A23669C4C00D52D9D /* UIViewController+SemiModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+SemiModal.swift"; sourceTree = "<group>"; };
+		26BFEF5C23674CEC00D52D9D /* UISemiModalViewControllerTransitioning.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalViewControllerTransitioning.swift; sourceTree = "<group>"; };
+		26BFEF5E23674D1300D52D9D /* UISemiModalState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalState.swift; sourceTree = "<group>"; };
+		26BFEF6023674D2C00D52D9D /* UISemiModalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalStyle.swift; sourceTree = "<group>"; };
 		26C0C972F1132A569CFFF740D2BD353A /* UISegmentedControl+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UISegmentedControl+Rx.swift"; path = "RxCocoa/iOS/UISegmentedControl+Rx.swift"; sourceTree = "<group>"; };
 		26FC4AB42360D86F000C3B3E /* UIModalStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIModalStyle.swift; sourceTree = "<group>"; };
 		2703C8760788BA1E0A3D5408FEB758CE /* Multicast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Multicast.swift; path = RxSwift/Observables/Multicast.swift; sourceTree = "<group>"; };
@@ -1422,9 +1432,14 @@
 		26B0B0F02364EA5A00622FEC /* Semi Modal */ = {
 			isa = PBXGroup;
 			children = (
+				26BFEF5C23674CEC00D52D9D /* UISemiModalViewControllerTransitioning.swift */,
 				2608AF9E2363945A00177BF8 /* UISemiModalViewController.swift */,
 				26B0B0F12364EAB100622FEC /* UISemiModalTransition.swift */,
 				26B0B0F32366416A00622FEC /* UISemiModalPresentationController.swift */,
+				267B7FF92367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift */,
+				26BFEF5A23669C4C00D52D9D /* UIViewController+SemiModal.swift */,
+				26BFEF5E23674D1300D52D9D /* UISemiModalState.swift */,
+				26BFEF6023674D2C00D52D9D /* UISemiModalStyle.swift */,
 			);
 			path = "Semi Modal";
 			sourceTree = "<group>";
@@ -2597,8 +2612,10 @@
 				2FD0C24BAB70FA512255D34087B18A35 /* CryptoDigest.swift in Sources */,
 				9BC79DD85707C1967847DD1C9CF96B15 /* Data+Digest.swift in Sources */,
 				13D12140C8682835287C465B1862AAD4 /* DataSource.swift in Sources */,
+				267B7FFA2367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift in Sources */,
 				075AA54A075FCAC21030B36EAB3531B2 /* Date+Espresso.swift in Sources */,
 				CC7083B3F15FBCABFE4AA66D624C4412 /* Dictionary+Espresso.swift in Sources */,
+				26BFEF5B23669C4C00D52D9D /* UIViewController+SemiModal.swift in Sources */,
 				3B8A67350C9DDA7D06891D8A6C18D9C1 /* ErrorConvertible.swift in Sources */,
 				F4C5000EEC9EA08EFFE4FC7DF78BE59C /* Espresso-dummy.m in Sources */,
 				06936B7B24893C97CC4F6848C326A92A /* Event+Rx.swift in Sources */,
@@ -2612,6 +2629,7 @@
 				2ED5D23E2300C2F58095F144C7B31B23 /* RxCollectionViewCell.swift in Sources */,
 				2CBFC0852BE74F3908FA099CEDD40771 /* RxDataSourcesCellViewModel.swift in Sources */,
 				4FB83FC31BADDEA6702EEA1BB1A36A8C /* RxReadOnlyVariable.swift in Sources */,
+				26BFEF5F23674D1300D52D9D /* UISemiModalState.swift in Sources */,
 				371CCC3A2DDF8D0B18649EA6C33A2F7E /* RxTableViewCell.swift in Sources */,
 				09A21E381407AC68228BC60FFB7BA412 /* RxVariable.swift in Sources */,
 				26B0B0F42366416A00622FEC /* UISemiModalPresentationController.swift in Sources */,
@@ -2677,6 +2695,8 @@
 				106C99E6FD769C83CF9452FC40AC040B /* UIZoomTransition.swift in Sources */,
 				E6DC58E74E2532046C4164ECA4517F08 /* UserAuthenticator.swift in Sources */,
 				E710495329329A52C81BBA87589A1A98 /* ViewModel.swift in Sources */,
+				26BFEF6123674D2C00D52D9D /* UISemiModalStyle.swift in Sources */,
+				26BFEF5D23674CEC00D52D9D /* UISemiModalViewControllerTransitioning.swift in Sources */,
 				2608AF9D2363767C00177BF8 /* UIBaseNavigationController.swift in Sources */,
 				B104F4CE1CA3A1ADEDA82D7D8ED74AE0 /* VoidEvent.swift in Sources */,
 				3DD4F6E3B1D45594E92153986143404C /* XMLCodable.swift in Sources */,
