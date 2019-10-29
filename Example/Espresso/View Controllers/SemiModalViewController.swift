@@ -9,16 +9,6 @@
 import Espresso
 
 class SemiModalViewController: UISemiModalViewController {
-              
-    private var nextState: UISemiModalState {
-        
-        switch self.state {
-        case .semiModal: return .modal
-        case .modal: return .fullscreen
-        case .fullscreen: return .semiModal
-        }
-        
-    }
     
     init() {
         
@@ -38,10 +28,6 @@ class SemiModalViewController: UISemiModalViewController {
         
         super.viewDidLoad()
         setupSubviews()
-                
-        self.view.addTapGesture { _ in
-            self.transition(to: self.nextState)
-        }
         
         self.view.addLongPressGesture { _ in
             self.dismiss(animated: true)
@@ -60,21 +46,46 @@ class SemiModalViewController: UISemiModalViewController {
     private func setupSubviews() {
         
         self.view.backgroundColor = .white
-        
-        let button = UIButton()
-        button.backgroundColor = .groupTableViewBackground
-        button.setTitle("Another", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 6
-        button.addTarget(self, action: #selector(didTapAnother(_:)), for: .touchUpInside)
-        self.view.addSubview(button)
-        button.snp.makeConstraints { make in
+
+        let anotherButton = UIButton()
+        anotherButton.backgroundColor = .groupTableViewBackground
+        anotherButton.setTitle("Present Another", for: .normal)
+        anotherButton.setTitleColor(.black, for: .normal)
+        anotherButton.layer.cornerRadius = 6
+        anotherButton.addTarget(self, action: #selector(didTapAnother(_:)), for: .touchUpInside)
+        self.view.addSubview(anotherButton)
+        anotherButton.snp.makeConstraints { make in
             make.leading.equalTo(20)
             make.bottom.equalTo(-(UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 20))
             make.trailing.equalTo(-20)
             make.height.equalTo(50)
         }
+        
+        let stateControl = UISegmentedControl()
+        stateControl.insertSegment(withTitle: "Semi-modal", at: 0, animated: false)
+        stateControl.insertSegment(withTitle: "Modal", at: 1, animated: false)
+        stateControl.insertSegment(withTitle: "Fullscreen", at: 2, animated: false)
+        stateControl.selectedSegmentIndex = 0
+        stateControl.addTarget(self, action: #selector(stateControlDidChange(_:)), for: .valueChanged)
+        self.view.addSubview(stateControl)
+        stateControl.snp.makeConstraints { make in
+            make.leading.equalTo(20)
+            make.trailing.equalTo(-20)
+            make.bottom.equalTo(anotherButton.snp.top).offset(-8)
+            make.height.equalTo(30)
+        }
 
+    }
+    
+    @objc private func stateControlDidChange(_ sender: UISegmentedControl) {
+        
+        switch sender.selectedSegmentIndex {
+        case 0: transition(to: .semiModal)
+        case 1: transition(to: .modal)
+        case 2: transition(to: .fullscreen)
+        default: break
+        }
+        
     }
     
     @objc private func didTapAnother(_ sender: UIButton) {

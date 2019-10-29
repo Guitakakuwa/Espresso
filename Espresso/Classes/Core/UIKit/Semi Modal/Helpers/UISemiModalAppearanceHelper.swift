@@ -13,6 +13,8 @@ internal class UISemiModalAppearanceHelper {
     private weak var presented: UISemiModalViewController!
     private weak var container: UIView?
     
+    var isPresentation: Bool = true
+    
     private var containerSize: CGSize {
         
         return CGSize(
@@ -21,11 +23,6 @@ internal class UISemiModalAppearanceHelper {
         )
         
     }
-    
-    private let dimmingAlpha: CGFloat = 0.3
-    private let cardScale: CGFloat = 0.9
-    private let cardStackOffset: CGFloat = 10
-    private let cardCornerRadius: CGFloat = 14
     
     private lazy var configuration: UISemiModalViewController.Configuration = {
         return self.presented.configuration()
@@ -69,76 +66,67 @@ internal class UISemiModalAppearanceHelper {
         //        default: break
         //        }
         
-        return .default
+        // return .default
+        
+        if let _ = self.presenter as? UISemiModalViewControllerTransitioning {
+            
+            if self.presented.state == .fullscreen {
+                return self.configuration.statusBarStyle.fullscreen
+            }
+                
+//            else if let fullscreen = self.presented.firstSemiModalFullscreenAncestor {
+//
+//            }
+            
+            return .default
+            
+        }
+        else {
+            
+            switch presented.state {
+            case .semiModal: return self.configuration.statusBarStyle.semiModal
+            case .modal:
+                
+                switch self.presented.style.rawStyle {
+                case .card: return .lightContent
+                case .cover: return self.configuration.statusBarStyle.modal
+                }
+                
+            case .fullscreen: return self.configuration.statusBarStyle.fullscreen
+            }
+            
+        }
         
     }
     
     var dimmingAlphaOfPresentingView: CGFloat {
         
         switch self.presented.state {
-        case .semiModal: return self.presenter.isPresentedSemiModally ? 0 : self.dimmingAlpha
-        case .modal, .fullscreen: return self.dimmingAlpha
+        case .semiModal: return self.presenter.isPresentedSemiModally ? 0 : UISemiModalConstants.dimmingAlpha
+        case .modal, .fullscreen: return UISemiModalConstants.dimmingAlpha
         }
         
     }
     
     var transformOfPresentingView: CGAffineTransform {
-                
-        switch self.presented.state {
-        case .semiModal:
-                        
-            if let presenting = self.presenter as? UISemiModalViewController {
-                
-                switch self.configuration.style.rawStyle {
-                case .card:
-                    
-                    let presenterHeight = presenting.preferredContentSize.height
-                    let scaledPresenterHeight = (presenterHeight * self.cardScale)
-                    let yOffset = -(((presenterHeight - scaledPresenterHeight) / 2) + self.cardStackOffset)
-                    
-                    return CGAffineTransform(
-                        scaleX: self.cardScale,
-                        y: self.cardScale
-                    ).translatedBy(x: 0, y: yOffset)
-                    
-                case .cover:
-                    
-                    return CGAffineTransform(
-                        scaleX: self.cardScale,
-                        y: self.cardScale
-                    )
-                    
-                }
-                
-            }
-            
-            return .identity
-            
-        case .modal, .fullscreen:
-            
-            switch self.configuration.style.rawStyle {
-            case .card:
-                
-                return CGAffineTransform(
-                    scaleX: self.cardScale,
-                    y: self.cardScale
-                )
-                
-            case .cover: return .identity
-            }
-            
-        }
         
+        return UISemiModalPresentingViewTransform.for(
+            presenter: self.presenter,
+            presented: self.presented,
+            inContainer: self.container!,
+            transition: self.isPresentation ? .presentation : .dismissal
+        )
+
     }
     
     var cornerRadiusOfPresentingView: CGFloat {
                 
         switch self.presented.state {
-        case .semiModal: return self.presenter.isPresentedSemiModally ? self.cardCornerRadius : 0
+        case .semiModal: return self.presenter.isPresentedSemiModally ? UISemiModalConstants.cardCornerRadius : 0
         case .modal, .fullscreen:
             
             switch self.configuration.style.rawStyle {
-            case .card: return self.cardCornerRadius
+            case .card: return UISemiModalConstants.cardCornerRadius
             case .cover: return 0
             }
             
@@ -158,7 +146,7 @@ internal class UISemiModalAppearanceHelper {
         case .modal:
             
             switch self.configuration.style.rawStyle {
-            case .card: contentHeight -= (statusBarHeight + self.cardStackOffset)
+            case .card: contentHeight -= (statusBarHeight + UISemiModalConstants.cardStackOffset)
             case .cover: contentHeight -= statusBarHeight
             }
             
@@ -179,7 +167,7 @@ internal class UISemiModalAppearanceHelper {
     var cornerRadiusOfPresentedView: CGFloat {
         
         switch self.presented.state {
-        case .semiModal, .modal: return self.cardCornerRadius
+        case .semiModal, .modal: return UISemiModalConstants.cardCornerRadius
         case .fullscreen: return 0
         }
         

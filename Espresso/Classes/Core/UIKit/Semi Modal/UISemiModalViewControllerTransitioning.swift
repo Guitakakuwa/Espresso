@@ -33,13 +33,13 @@ internal extension UISemiModalViewControllerTransitioning {
         return (self.state == .fullscreen)
     }
     
-    var firstAncestorInSemiModalFullscreenStyle: UISemiModalViewControllerTransitioning? {
+    var firstSemiModalFullscreenAncestor: UISemiModalViewControllerTransitioning? {
         
         guard let parent = self.presentingViewController as? UISemiModalViewControllerTransitioning else {
             return nil
         }
         
-        return _firstAncestorInSemiModalFullscreenStyle(parent)
+        return _firstSemiModalFullscreenAncestor(parent)
         
     }
     
@@ -47,13 +47,13 @@ internal extension UISemiModalViewControllerTransitioning {
         return (self.state == .modal) && (self.style.rawStyle == .card)
     }
     
-    var firstAncestorInSemiModalCardStyle: UISemiModalViewControllerTransitioning? {
+    var firstSemiModalCardAncestor: UISemiModalViewControllerTransitioning? {
         
         guard let parent = self.presentingViewController as? UISemiModalViewControllerTransitioning else {
             return nil
         }
         
-        return _firstAncestorInSemiModalCardStyle(parent)
+        return _firstSemiModalCardAncestor(parent)
         
     }
     
@@ -80,7 +80,7 @@ internal extension UISemiModalViewControllerTransitioning {
         
     }
         
-    private func _firstAncestorInSemiModalFullscreenStyle(_ ancestor: UISemiModalViewControllerTransitioning) -> UISemiModalViewControllerTransitioning? {
+    private func _firstSemiModalFullscreenAncestor(_ ancestor: UISemiModalViewControllerTransitioning) -> UISemiModalViewControllerTransitioning? {
         
         if ancestor.isInSemiModalFullscreenStyle {
             return ancestor
@@ -90,11 +90,11 @@ internal extension UISemiModalViewControllerTransitioning {
             return nil
         }
         
-        return _firstAncestorInSemiModalFullscreenStyle(greatAncestor)
+        return _firstSemiModalFullscreenAncestor(greatAncestor)
         
     }
     
-    private func _firstAncestorInSemiModalCardStyle(_ ancestor: UISemiModalViewControllerTransitioning) -> UISemiModalViewControllerTransitioning? {
+    private func _firstSemiModalCardAncestor(_ ancestor: UISemiModalViewControllerTransitioning) -> UISemiModalViewControllerTransitioning? {
                 
         if ancestor.isInSemiModalCardStyle {
             return ancestor
@@ -104,7 +104,7 @@ internal extension UISemiModalViewControllerTransitioning {
             return nil
         }
         
-        return _firstAncestorInSemiModalCardStyle(greatAncestor)
+        return _firstSemiModalCardAncestor(greatAncestor)
         
     }
     

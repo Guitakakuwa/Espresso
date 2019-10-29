@@ -88,7 +88,9 @@
 		2608AF9D2363767C00177BF8 /* UIBaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2608AF9C2363767C00177BF8 /* UIBaseNavigationController.swift */; };
 		2608AF9F2363945A00177BF8 /* UISemiModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2608AF9E2363945A00177BF8 /* UISemiModalViewController.swift */; };
 		267B7FFA2367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B7FF92367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift */; };
+		267B800723681BC600147CC8 /* UISemiModalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 267B800623681BC600147CC8 /* UISemiModalConstants.swift */; };
 		26918039115AA48C4265A42CC73374D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E640CA2B88DC54FAD914B7C048A8CAA5 /* Foundation.framework */; };
+		26A836C52368AFE40058250B /* UISemiModalPresentingViewTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26A836C42368AFE40058250B /* UISemiModalPresentingViewTransform.swift */; };
 		26B0B0F22364EAB100622FEC /* UISemiModalTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B0B0F12364EAB100622FEC /* UISemiModalTransition.swift */; };
 		26B0B0F42366416A00622FEC /* UISemiModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26B0B0F32366416A00622FEC /* UISemiModalPresentationController.swift */; };
 		26BFEF57236652FE00D52D9D /* UITransitionNavInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BFEF552366529D00D52D9D /* UITransitionNavInteractionController.swift */; };
@@ -665,6 +667,8 @@
 		261437FCD1F961B0891EA884FB9396A9 /* RetryWhen.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RetryWhen.swift; path = RxSwift/Observables/RetryWhen.swift; sourceTree = "<group>"; };
 		262DC92B1832299308F492511E079FCF /* NSTextStorage+Rx.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSTextStorage+Rx.swift"; path = "RxCocoa/iOS/NSTextStorage+Rx.swift"; sourceTree = "<group>"; };
 		267B7FF92367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalAppearanceHelper.swift; sourceTree = "<group>"; };
+		267B800623681BC600147CC8 /* UISemiModalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalConstants.swift; sourceTree = "<group>"; };
+		26A836C42368AFE40058250B /* UISemiModalPresentingViewTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalPresentingViewTransform.swift; sourceTree = "<group>"; };
 		26B0B0F12364EAB100622FEC /* UISemiModalTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalTransition.swift; sourceTree = "<group>"; };
 		26B0B0F32366416A00622FEC /* UISemiModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISemiModalPresentationController.swift; sourceTree = "<group>"; };
 		26BA866E96822E5DD298D20103F92328 /* NSObject+Rx+KVORepresentable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSObject+Rx+KVORepresentable.swift"; path = "RxCocoa/Foundation/NSObject+Rx+KVORepresentable.swift"; sourceTree = "<group>"; };
@@ -1429,6 +1433,25 @@
 			path = Convertibles;
 			sourceTree = "<group>";
 		};
+		267B7FFB2368184000147CC8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				267B800623681BC600147CC8 /* UISemiModalConstants.swift */,
+				267B7FF92367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift */,
+				26BFEF5A23669C4C00D52D9D /* UIViewController+SemiModal.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		267B7FFC2368185100147CC8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				26BFEF5E23674D1300D52D9D /* UISemiModalState.swift */,
+				26BFEF6023674D2C00D52D9D /* UISemiModalStyle.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		26B0B0F02364EA5A00622FEC /* Semi Modal */ = {
 			isa = PBXGroup;
 			children = (
@@ -1436,10 +1459,9 @@
 				2608AF9E2363945A00177BF8 /* UISemiModalViewController.swift */,
 				26B0B0F12364EAB100622FEC /* UISemiModalTransition.swift */,
 				26B0B0F32366416A00622FEC /* UISemiModalPresentationController.swift */,
-				267B7FF92367B6AA00147CC8 /* UISemiModalAppearanceHelper.swift */,
-				26BFEF5A23669C4C00D52D9D /* UIViewController+SemiModal.swift */,
-				26BFEF5E23674D1300D52D9D /* UISemiModalState.swift */,
-				26BFEF6023674D2C00D52D9D /* UISemiModalStyle.swift */,
+				26A836C42368AFE40058250B /* UISemiModalPresentingViewTransform.swift */,
+				267B7FFC2368185100147CC8 /* Model */,
+				267B7FFB2368184000147CC8 /* Helpers */,
 			);
 			path = "Semi Modal";
 			sourceTree = "<group>";
@@ -2661,8 +2683,10 @@
 				9B9D71067D2F5E950AA0F8041C115475 /* UIDevice+Espresso.swift in Sources */,
 				F80710B281CF506DD514A382C442FFF0 /* UIDisplayFeature.swift in Sources */,
 				051DA60E4B374157D22AD03F52112EA9 /* UIFadeTransition.swift in Sources */,
+				26A836C52368AFE40058250B /* UISemiModalPresentingViewTransform.swift in Sources */,
 				3F5DAB7E4A0653AD0E5B51C952B09C86 /* UIGestureRecognizer+Espresso.swift in Sources */,
 				A3614B1D810E29A4CBDD3F23892F0057 /* UIGradientView.swift in Sources */,
+				267B800723681BC600147CC8 /* UISemiModalConstants.swift in Sources */,
 				5B4D5F51C5840D74DAF61EB86D37B2D2 /* UIHomeGrabber.swift in Sources */,
 				FBE5A8A9CF988A75CB119BA9F5220C32 /* UIImage+Espresso.swift in Sources */,
 				25B99817DBEA38069C94D8B6EBA635CD /* UINavigationController+Espresso.swift in Sources */,

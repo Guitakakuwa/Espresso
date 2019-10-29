@@ -11,14 +11,30 @@ open class UISemiModalViewController: UIBaseViewController, UISemiModalViewContr
     
     internal struct Configuration {
         
+        struct StatusBarStyle {
+            
+            var semiModal: UIStatusBarStyle
+            var modal: UIStatusBarStyle
+            var fullscreen: UIStatusBarStyle
+            
+        }
+        
+        var style: UISemiModalStyle
+        var statusBarStyle: StatusBarStyle
+        
         var presentationDuration: TimeInterval
         var dismissalDuration: TimeInterval
+        
         var isSwipeToDismissEnabled: Bool
-        var style: UISemiModalStyle
         
     }
     
     // Configuration --------------------------------------------------------------
+    
+    public var style: UISemiModalStyle = .default
+    public var preferredSemiModalStatusBarStyle: UIStatusBarStyle = .default
+    public var preferredModalStatusBarStyle: UIStatusBarStyle = .default // Only valid when style == cover
+    public var preferredFullscreenStatusBarStyle: UIStatusBarStyle = .default
     
     public var presentationDuration: TimeInterval = 0.3 {
         didSet {
@@ -38,17 +54,11 @@ open class UISemiModalViewController: UIBaseViewController, UISemiModalViewContr
         }
     }
     
-    public var style: UISemiModalStyle = .default
-    
     // ----------------------------------------------------------------------------
         
     public internal(set) var state: UISemiModalState = .semiModal
     
     public var scrollViewForSemiModalTransition: UIScrollView?
-    
-    public var preferredSemiModalStatusBarStyle: UIStatusBarStyle = .default
-    public var preferredModalStatusBarStyle: UIStatusBarStyle = .default // Only valid when style == cover
-    public var preferredFullscreenStatusBarStyle: UIStatusBarStyle = .default
     
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.semiModalPresentationController?.statusBarStyle ?? .default
@@ -97,12 +107,17 @@ open class UISemiModalViewController: UIBaseViewController, UISemiModalViewContr
     // MARK: Private
     
     internal func configuration() -> Configuration {
-        
+
         return Configuration(
+            style: self.style,
+            statusBarStyle: Configuration.StatusBarStyle(
+                semiModal: self.preferredSemiModalStatusBarStyle,
+                modal: self.preferredModalStatusBarStyle,
+                fullscreen: self.preferredFullscreenStatusBarStyle
+            ),
             presentationDuration: self.presentationDuration,
             dismissalDuration: self.dismissalDuration,
-            isSwipeToDismissEnabled: self.isSwipeToDismissEnabled,
-            style: self.style
+            isSwipeToDismissEnabled: self.isSwipeToDismissEnabled
         )
         
     }

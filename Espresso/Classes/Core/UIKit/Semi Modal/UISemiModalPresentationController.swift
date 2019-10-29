@@ -93,6 +93,8 @@ internal class UISemiModalPresentationController: UIPresentationController {
             containerView: self.containerView
         )
         
+        self.appearance.isPresentation = true
+        
         self.containerView!.addTapGesture { [weak self] _ in
             self?.presentedViewController.dismiss(animated: true, completion: nil)
         }
@@ -124,10 +126,19 @@ internal class UISemiModalPresentationController: UIPresentationController {
 
     override func dismissalTransitionWillBegin() {
         
+        self.appearance.isPresentation = false
         self.isTransitioning = true
         
         UIAnimation(.simple(.easeOut), duration: self.configuration.dismissalDuration, delay: 0) {
+            
             self.dimmingView!.alpha = 0
+            
+            self.presentingViewController.view.transform = self.appearance.transformOfPresentingView
+            self.presentingViewController.view.layer.cornerRadius = self.appearance.cornerRadiusOfPresentingView
+
+            self.presentedViewController.view.frame = self.frameOfPresentedViewInContainerView
+            self.presentedViewController.view.layer.cornerRadius = self.appearance.cornerRadiusOfPresentedView
+            
         }.run()
         
     }
