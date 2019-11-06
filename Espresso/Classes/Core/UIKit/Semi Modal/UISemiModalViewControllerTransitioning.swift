@@ -7,15 +7,15 @@
 
 import UIKit
 
-public protocol UISemiModalViewControllerTransitioning: UIViewController {
+internal protocol UISemiModalViewControllerTransitioning: UIViewController {
     
     var state: UISemiModalState { get }
     var style: UISemiModalStyle { get set }
-
     var transition: UITransition? { get }
     var presentationController: UIPresentationController? { get }
-    
     var scrollViewForSemiModalTransition: UIScrollView? { get }
+    
+    func configuration() -> UISemiModalConfiguration
     
 }
 

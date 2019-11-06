@@ -10,41 +10,44 @@ import SnapKit
 
 internal class UISemiModalPresentationController: UIPresentationController {
     
-    private var dimmingView: UIView?
-    
-    private var presentingSemiModalViewController: UISemiModalViewController? {
-        return (self.presentingViewController as? UISemiModalViewController)
+    private var presentingSemiModal: UISemiModalViewControllerTransitioning? {
+        return (self.presentingViewController as? UISemiModalViewControllerTransitioning)
     }
     
-    private var presentedSemiModalViewController: UISemiModalViewController {
-        return (self.presentedViewController as! UISemiModalViewController)
+    private var presentedSemiModal: UISemiModalViewControllerTransitioning {
+        return (self.presentedViewController as! UISemiModalViewControllerTransitioning)
     }
     
-    private lazy var configuration: UISemiModalViewController.Configuration = {
-        return self.presentedSemiModalViewController.configuration()
+    private lazy var configuration: UISemiModalConfiguration = {
+        return self.presentedSemiModal.configuration()
     }()
-    
-    private let appearance = UISemiModalAppearanceHelper()
-    
+        
     var statusBarStyle: UIStatusBarStyle {
-        return self.appearance.statusBarStyle
+        return self.transitionHelper?.statusBarStyle ?? .default
     }
+    
+    private var dimmingView: UIView?
+    private var transitionHelper: UISemiModalViewTransitionHelper?
     
     var isTransitioning: Bool = true
 
     override var frameOfPresentedViewInContainerView: CGRect {
-        return self.appearance.frameOfPresentedViewInContainerView
+        return self.transitionHelper?.frameForPresentedViewInContainer ?? .zero
     }
     
-    override init(presentedViewController: UIViewController,
-                  presenting presentingViewController: UIViewController?) {
-              
-        super.init(
-            presentedViewController: presentedViewController,
-            presenting: presentingViewController
-        )
-
+    private var cornerRadiusOfPresentedView: CGFloat {
+        return self.transitionHelper?.cornerRadiusForPresentedView ?? 0
     }
+    
+//    override init(presentedViewController: UIViewController,
+//                  presenting presentingViewController: UIViewController?) {
+//
+//        super.init(
+//            presentedViewController: presentedViewController,
+//            presenting: presentingViewController
+//        )
+//
+//    }
     
     func updateForSemiModalStateChanged() {
     
@@ -55,27 +58,27 @@ internal class UISemiModalPresentationController: UIPresentationController {
     
     override func containerViewWillLayoutSubviews() {
         
-        self.presentedViewController.view.layoutIfNeeded()
-        
-        self.appearance.set(
+        self.transitionHelper = UISemiModalViewTransitionHelper(
             presenter: self.presentingViewController,
-            presented: self.presentedSemiModalViewController,
-            containerView: self.containerView
+            presented: self.presentedSemiModal,
+            container: self.containerView!
         )
 
+        self.presentedViewController.view.layoutIfNeeded()
+        
         self.isTransitioning = true
 
         let timing = UIAnimation.TimingCurve.spring(damping: 1, velocity: CGVector(dx: 0.7, dy: 0.7))
 
         UIAnimation(timing, duration: 0.4, delay: 0) {
 
-            self.dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(self.appearance.dimmingAlphaOfPresentingView)
+            let dimmingAlpha = self.transitionHelper?.dimmingAlpha ?? 0
+            self.dimmingView?.backgroundColor = UIColor.black.withAlphaComponent(dimmingAlpha)
 
-            self.presentingViewController.view.transform = self.appearance.transformOfPresentingView
-            self.presentingViewController.view.layer.cornerRadius = self.appearance.cornerRadiusOfPresentingView
-
+            self.transitionHelper!.transformPresentingView()
+            
             self.presentedViewController.view.frame = self.frameOfPresentedViewInContainerView
-            self.presentedViewController.view.layer.cornerRadius = self.appearance.cornerRadiusOfPresentedView
+            self.presentedViewController.view.layer.cornerRadius = self.cornerRadiusOfPresentedView
 
         }.run(completion: {
 
@@ -87,32 +90,27 @@ internal class UISemiModalPresentationController: UIPresentationController {
     
     override func presentationTransitionWillBegin() {
         
-        self.appearance.set(
+        self.transitionHelper = UISemiModalViewTransitionHelper(
             presenter: self.presentingViewController,
-            presented: self.presentedSemiModalViewController,
-            containerView: self.containerView
+            presented: self.presentedSemiModal,
+            container: self.containerView!
         )
         
-        self.appearance.isPresentation = true
+        self.transitionHelper!.set(presentation: true)
         
         self.containerView!.addTapGesture { [weak self] _ in
             self?.presentedViewController.dismiss(animated: true, completion: nil)
         }
-        
+                
         self.dimmingView = UIView()
-        self.dimmingView!.backgroundColor = UIColor.black.withAlphaComponent(self.appearance.dimmingAlphaOfPresentingView)
+        self.dimmingView!.backgroundColor = UIColor.black.withAlphaComponent(self.transitionHelper!.dimmingAlpha)
         self.dimmingView!.alpha = 0
         self.containerView!.addSubview(self.dimmingView!)
         self.dimmingView!.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        self.presentingViewController.view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        self.presentingViewController.view.layer.masksToBounds = true
-        
-        self.presentedViewController.view.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        self.presentedViewController.view.layer.cornerRadius = self.appearance.cornerRadiusOfPresentedView
-        self.presentedViewController.view.layer.masksToBounds = true
+        self.presentedViewController.view.layer.cornerRadius = self.transitionHelper!.cornerRadiusForPresentedView
         
         UIAnimation(.simple(.easeOut), duration: self.configuration.presentationDuration, delay: 0) {
             self.dimmingView!.alpha = 1
@@ -126,18 +124,17 @@ internal class UISemiModalPresentationController: UIPresentationController {
 
     override func dismissalTransitionWillBegin() {
         
-        self.appearance.isPresentation = false
+        self.transitionHelper?.set(presentation: false)
         self.isTransitioning = true
         
         UIAnimation(.simple(.easeOut), duration: self.configuration.dismissalDuration, delay: 0) {
             
-            self.dimmingView!.alpha = 0
-            
-            self.presentingViewController.view.transform = self.appearance.transformOfPresentingView
-            self.presentingViewController.view.layer.cornerRadius = self.appearance.cornerRadiusOfPresentingView
+            self.dimmingView?.alpha = 0
 
+            self.transitionHelper?.transformPresentingView()
+            
             self.presentedViewController.view.frame = self.frameOfPresentedViewInContainerView
-            self.presentedViewController.view.layer.cornerRadius = self.appearance.cornerRadiusOfPresentedView
+            self.presentedViewController.view.layer.cornerRadius = self.transitionHelper?.cornerRadiusForPresentedView ?? 0
             
         }.run()
         

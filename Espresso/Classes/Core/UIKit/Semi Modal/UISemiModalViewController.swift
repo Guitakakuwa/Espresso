@@ -9,26 +9,6 @@ import UIKit
 
 open class UISemiModalViewController: UIBaseViewController, UISemiModalViewControllerTransitioning {
     
-    internal struct Configuration {
-        
-        struct StatusBarStyle {
-            
-            var semiModal: UIStatusBarStyle
-            var modal: UIStatusBarStyle
-            var fullscreen: UIStatusBarStyle
-            
-        }
-        
-        var style: UISemiModalStyle
-        var statusBarStyle: StatusBarStyle
-        
-        var presentationDuration: TimeInterval
-        var dismissalDuration: TimeInterval
-        
-        var isSwipeToDismissEnabled: Bool
-        
-    }
-    
     // Configuration --------------------------------------------------------------
     
     public var style: UISemiModalStyle = .default
@@ -106,11 +86,11 @@ open class UISemiModalViewController: UIBaseViewController, UISemiModalViewContr
         
     // MARK: Private
     
-    internal func configuration() -> Configuration {
+    internal func configuration() -> UISemiModalConfiguration {
 
-        return Configuration(
+        return UISemiModalConfiguration(
             style: self.style,
-            statusBarStyle: Configuration.StatusBarStyle(
+            statusBarStyle: UISemiModalConfiguration.StatusBarStyle(
                 semiModal: self.preferredSemiModalStatusBarStyle,
                 modal: self.preferredModalStatusBarStyle,
                 fullscreen: self.preferredFullscreenStatusBarStyle
